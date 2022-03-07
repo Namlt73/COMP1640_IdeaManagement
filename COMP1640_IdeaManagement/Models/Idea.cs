@@ -21,6 +21,8 @@ namespace COMP1640_IdeaManagement.Models
         public int AcademicId { get; set; }
         public Academic Academic { get; set; }
         public List<Comment> Comments { get; set; }
-        
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
     }
 }
