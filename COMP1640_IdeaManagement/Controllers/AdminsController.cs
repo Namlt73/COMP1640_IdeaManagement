@@ -1,8 +1,5 @@
-﻿using COMP1640_IdeaManagement.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,7 +23,7 @@ namespace COMP1640_IdeaManagement.Controllers
 
         public async Task<IActionResult> Seeder()
         {
-            var roleNames = typeof(RoleName).GetFields().ToList();
+            var roleNames = typeof(Utils.Utils).GetFields().ToList();
             foreach (var role in roleNames)
             {
                 var roleName = (string)role.GetRawConstantValue();
@@ -49,7 +46,7 @@ namespace COMP1640_IdeaManagement.Controllers
                 };
 
                 await _userManager.CreateAsync(adminUser, "admin123");
-                await _userManager.AddToRoleAsync(adminUser, RoleName.Administrator);
+                await _userManager.AddToRoleAsync(adminUser, Utils.Utils.Administrator);
             }
 
             return RedirectToAction("Index");
