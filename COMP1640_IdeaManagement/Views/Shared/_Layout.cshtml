@@ -8,28 +8,58 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
+    <header class="p-3 bg-dark text-white">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">IDEA Management</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admins" asp-action="Index">Manage</a>
-                        </li>
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a class="nav-link px-2 text-secondary" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary">###</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary">###</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary">About</a></li>
                     </ul>
-                    <partial name="_LoginPartial" />
+
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                        <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                    </form>
+
+                    <div class="d-flex p-2">
+                        <partial name="_LoginPartial" />
+                        
+                    </div>
+                    <div class="d-flex p-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle"
+                                    type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                Managerment
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-area="" asp-controller="Admins" asp-action="Index">Admin</a>
+                                <a class="dropdown-item" href="#">QA</a>
+                                <a class="dropdown-item" href="#">Staff</a>
+                                <a class="dropdown-item" href="#">Role manage</a>
+                                <a class="dropdown-item" href="#">Seed data</a>
+                                <a class="dropdown-item" href="#">Chart view</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
+         </nav>
     </header>
+    
+
+
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
