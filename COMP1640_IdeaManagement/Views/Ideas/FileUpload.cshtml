@@ -1,0 +1,22 @@
+﻿@model COMP1640_IdeaManagement.Helpper.UploadFile
+@{
+    Idea idea = ViewData["Idea"] as Idea;
+}
+<h1>Uploads file</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <label asp-for="@Model.FileUpload"></label>
+    <input asp-for="@Model.FileUpload" />
+    <span asp-validation-for="@Model.FileUpload"></span>
+
+    <button asp-action="FileUpload" asp-route-id="@idea.Id">Upload</button>
+</form>
+<div class="d-flex flex-wrap">
+    @foreach(var img in idea.Images)
+    {
+    <div class="w-50">
+        <img class="w-100" src="/images/Ideas/@img.FileName" />
+    </div>
+    }
+</div>
+    
