@@ -22,21 +22,28 @@ namespace COMP1640_IdeaManagement.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [Display(Name = "Date Created")]
         public DateTime CreatedAt { get; set; }
         public bool Status { get; set; }
-        public string Image { get; set; }
-        public string Docs { get; set; }
+
+        
+        public List<IdeaImage> Images { get; set; }
+
+       
         public List<Comment> Comments { get; set; }
 
         [ForeignKey("User")]
+        [Display(Name = "User Id")]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
 
         [ForeignKey("Mission")]
+        [Display(Name = "Mission Id")]
         public int MissionId{ get; set; }
         public Mission Mission { get; set; }       
 
         [ForeignKey("Category")]
+        [Display(Name = "Category Id")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
