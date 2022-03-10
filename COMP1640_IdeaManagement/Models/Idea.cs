@@ -26,16 +26,20 @@ namespace COMP1640_IdeaManagement.Models
         public bool Status { get; set; }
         public string Image { get; set; }
         public string Docs { get; set; }
+
+        public string State { get; set; }
+        public List<String> StateSuggestions => new List<string> { "VIC", "NSW", "QLD", "NT", "WA", "SA", "TAS", "ACT" };
         public List<Comment> Comments { get; set; }
 
         [ForeignKey("User")]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
 
+
         [ForeignKey("Mission")]
         public int MissionId{ get; set; }
-        public Mission Mission { get; set; }       
-
+        public Mission Mission { get; set; }  
+        
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }

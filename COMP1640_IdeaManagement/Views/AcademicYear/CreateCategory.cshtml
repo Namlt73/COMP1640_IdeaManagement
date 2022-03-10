@@ -1,0 +1,24 @@
+﻿@model IEnumerable<COMP1640_IdeaManagement.Models.Idea>
+
+<form asp-controller="AcademicYear" asp-action="CreateCategory" method="post">
+    <div class="row">
+        <div class="col-lg-4">Name</div>
+        <div class="col-lg-8">
+            <input placeholder="Enter Category's Name" autocomplete="off" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-4">Content</div>
+        <div class="col-lg-8">
+            <input placeholder="Enter Description" autocomplete="off" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-8">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </div>
+
+</form>

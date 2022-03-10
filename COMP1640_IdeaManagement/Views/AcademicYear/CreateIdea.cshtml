@@ -1,0 +1,60 @@
+﻿@model IEnumerable<COMP1640_IdeaManagement.Models.Idea>
+
+<form asp-controller="AcademicYear" asp-action="CreateIdea" method="post">
+    <div class="row">
+        <div class="col-lg-4">Title</div>
+        <div class="col-lg-8">
+            <input placeholder="Enter Idea's Title" autocomplete="off" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-4">Content</div>
+        <div class="col-lg-8">
+            <input placeholder="Enter Your Content" autocomplete="off" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-4">Started At</div>
+        <div class="col-lg-8">
+            <input placeholder="Enter date" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-4">File</div>
+        <div class="col-lg-8">
+            <input type="file" name="file" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-4">Category</div>
+        <div class="col-lg-8">
+            <select id="User_Country" name="User.Country">
+                <option selected="selected">None</option>
+                <option>Great Britain</option>
+                <option>Germany</option>
+            </select>
+        </div>
+    </div>
+    <br />
+
+    <label class="form-check-label">
+        <input class="form-check-input"
+               type="checkbox"
+               checked="checked"
+               data-val="true"
+               data-val-required="This field is required."
+               id="IsActive"
+               name="IsActive"
+               value="false"> Agree to Term and Conditions
+    </label>
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-8">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+
+</form>

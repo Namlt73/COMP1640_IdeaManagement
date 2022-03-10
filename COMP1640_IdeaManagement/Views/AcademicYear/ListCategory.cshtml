@@ -1,0 +1,45 @@
+﻿@model IEnumerable<COMP1640_IdeaManagement.Models.Idea>
+@{
+    ViewBag.Title = "List";
+}
+
+
+<h2>List Idea</h2>
+
+<div class="form-group">
+    @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-default" })
+</div>
+
+<div class="form-group">
+    @Html.ActionLink("Create", "CreateCategory", "AcademicYear", null, new { @class = "btn btn-success" })
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index">Title</a>
+            </th>
+            <th>
+                <h3>Category</h3>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <h3>Category</h3>
+            </td>
+            <td>
+                <h3>Description</h3>
+            </td>
+            <td>
+                <a asp-action="UpdateCategory" asp-controller="AcademicYear" asp-route-id="">Edit</a> |
+                <a asp-action="DetailCategory" asp-controller="AcademicYear" asp-route-id="">Details</a> |
+                <a asp-action="DeleteCategory" asp-controller="AcademicYear" asp-route-id="">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
