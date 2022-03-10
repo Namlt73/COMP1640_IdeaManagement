@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,17 +9,32 @@ namespace COMP1640_IdeaManagement.Controllers
     public class AdminsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public AdminsController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+            this.roleManager = roleManager;
         }
 
+        [Authorize(Policy = "readpolicy")]
         public IActionResult Index()
         {
-            return View();
+            var roles = roleManager.Roles.ToList();
+            return View(roles);
+        }
+
+        [Authorize(Policy = "readpolicy")]
+        public IActionResult Create()
+        {
+            return View(new IdentityRole());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(IdentityRole role)
+        {
+            await roleManager.CreateAsync(role);
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Seeder()
@@ -27,10 +43,10 @@ namespace COMP1640_IdeaManagement.Controllers
             foreach (var role in roleNames)
             {
                 var roleName = (string)role.GetRawConstantValue();
-                var roleInDb = await _roleManager.FindByNameAsync(roleName);
+                var roleInDb = await roleManager.FindByNameAsync(roleName);
                 if (roleInDb == null)
                 {
-                    await _roleManager.CreateAsync(new IdentityRole(roleName));
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
 
