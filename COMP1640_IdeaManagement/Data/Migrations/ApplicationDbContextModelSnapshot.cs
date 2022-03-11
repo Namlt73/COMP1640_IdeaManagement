@@ -100,12 +100,6 @@ namespace COMP1640_IdeaManagement.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Docs")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MissionId")
                         .HasColumnType("int");
 
@@ -129,6 +123,26 @@ namespace COMP1640_IdeaManagement.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Ideas");
+                });
+
+            modelBuilder.Entity("COMP1640_IdeaManagement.Models.IdeaImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdeaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdeaId");
+
+                    b.ToTable("IdeaImages");
                 });
 
             modelBuilder.Entity("COMP1640_IdeaManagement.Models.IdeaUser", b =>
@@ -408,6 +422,17 @@ namespace COMP1640_IdeaManagement.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("COMP1640_IdeaManagement.Models.IdeaImage", b =>
+                {
+                    b.HasOne("COMP1640_IdeaManagement.Models.Idea", "Idea")
+                        .WithMany("Images")
+                        .HasForeignKey("IdeaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Idea");
+                });
+
             modelBuilder.Entity("COMP1640_IdeaManagement.Models.IdeaUser", b =>
                 {
                     b.HasOne("COMP1640_IdeaManagement.Models.Comment", "Comment")
@@ -492,6 +517,8 @@ namespace COMP1640_IdeaManagement.Data.Migrations
             modelBuilder.Entity("COMP1640_IdeaManagement.Models.Idea", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

@@ -17,6 +17,7 @@ namespace COMP1640_IdeaManagement.Data
         public DbSet<Idea> Ideas { get; set; }
         public DbSet<IdeaUser> IdeaUser { get; set; }
         public DbSet<AcademicYear> AcademicYears { get; set; }
+        public DbSet<IdeaImage> IdeaImages { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
