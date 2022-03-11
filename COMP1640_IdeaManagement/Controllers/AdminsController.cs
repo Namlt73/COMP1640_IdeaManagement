@@ -9,32 +9,89 @@ namespace COMP1640_IdeaManagement.Controllers
     public class AdminsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AdminsController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
-            this.roleManager = roleManager;
+            this._roleManager = roleManager;
         }
 
         [Authorize(Policy = "readpolicy")]
         public IActionResult Index()
         {
-            var roles = roleManager.Roles.ToList();
+            return View();
+        }
+        public IActionResult RoleList()
+        {
+            var roles = _roleManager.Roles.ToList();
             return View(roles);
         }
 
-        [Authorize(Policy = "readpolicy")]
-        public IActionResult Create()
+        public IActionResult UserList()
         {
-            return View(new IdentityRole());
+            var users = _userManager.Users.ToList();
+            return View(users);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(IdentityRole role)
+        public async Task<IActionResult> AsignRole(string id)
         {
-            await roleManager.CreateAsync(role);
-            return RedirectToAction("Index");
+
+            var roleNames = typeof(Utils.Utils).GetFields().ToList();
+             foreach (var role in roleNames)
+            {
+                var roleName = (string)role.GetRawConstantValue();
+                var roleInDb = await _roleManager.FindByNameAsync(roleName);
+                if (roleInDb == null)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(roleName));
+                    
+                }
+
+                var user = await _userManager.FindByIdAsync(id);
+                var admin = await _userManager.FindByNameAsync("Administrator");
+                if (admin == null)
+                {
+                   
+                    await _userManager.AddToRoleAsync(user, Utils.Utils.Administrator);
+                    
+                }
+                else
+                {
+                    return Content("This account is already an Admin role");
+                }
+
+
+
+                var QA = await _userManager.FindByNameAsync("QA Coordinato");
+                if (QA == null)
+                {
+
+                    await _userManager.AddToRoleAsync(user, Utils.Utils.QACoordinator );
+
+                }
+                else
+                {
+                    return Content("This account is already an QA Coordinato role");
+                }
+
+                var staff = await _userManager.FindByNameAsync("Staff");
+                if (staff == null)
+                {
+
+                    await _userManager.AddToRoleAsync(user, Utils.Utils.Staff);
+
+                }
+                else
+                {
+                    return Content("This account is already an Staff role");
+                }
+
+
+
+            }
+
+            return RedirectToAction("UserList");
         }
 
         public async Task<IActionResult> Seeder()
@@ -43,11 +100,12 @@ namespace COMP1640_IdeaManagement.Controllers
             foreach (var role in roleNames)
             {
                 var roleName = (string)role.GetRawConstantValue();
-                var roleInDb = await roleManager.FindByNameAsync(roleName);
+                var roleInDb = await _roleManager.FindByNameAsync(roleName);
                 if (roleInDb == null)
                 {
-                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                    await _roleManager.CreateAsync(new IdentityRole(roleName));
                 }
+
             }
 
 
