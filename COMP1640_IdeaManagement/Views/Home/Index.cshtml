@@ -1,95 +1,79 @@
-﻿@{
+﻿@model IEnumerable<COMP1640_IdeaManagement.Models.Idea>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <h2 class="text-center m-4">Home Posts</h2>
 
-    @*.................Componet...................*@
+<div class="container">
+   <div class="d-flex flex-row justify-content-between border shadow mb-3 mt-3">
+       <div>
+           <h3 class=" mt-3 ml-2">@User.Identity.Name</h3>
+       </div>
+       <p>
+           <a asp-action="Create" class="btn btn-primary mt-3 mr-2">Create New Idea</a>
+        </p>
+       </div>
 
-    <div class="container border m-2 mb-5">
-        <div class="d-flex p-2 justify-content-between">
-            <div class="left-container w-100 border">
-                <div class="text-info d-flex p-2 justify-content-between">
-                    <h4>User Name</h4>
-                    <span class="text-muted">CreatedAt</span>
-                </div>
-                <hr />
-                <div class="text-info w-100 h-50">
-                    <h6>Title</h6>
-                    <p>Content</p>
-                </div>
+       @foreach (var item in Model)
+        {
+<div class="border m-2 mb-5">
+    <div class="d-flex p-2 justify-content-between">
+
+        <div class="left-container w-100 border">
+            <div class="text-dark d-flex p-2 justify-content-between">
+                <h4>@item.User.UserName</h4>
+                <span class="text-muted">@item.CreatedAt</span>
             </div>
-            <div class="right-container w-100 bg-info flex-column p-2">
-                <h6 class="m-3">image</h6>
-                <h6 class="m-3">Doc</h6>
+            <hr />
+            <div class="text-info w-100 h-50">
+                <h6>@item.Title</h6>
+                <p>@item.Content</p>
             </div>
         </div>
+        <div class="right-container w-100 flex-column p-2">
+
+            @foreach (var img in item.Images)
+            {
+                <img class="m-3 w-100 h-100" src="/images/Ideas/@img.FileName" alt="" />
+            }
+        </div>
+
+
+    </div>
+    <div>
         <div class="d-flex p-2 justify-content-between">
             <div class="m-2">
                 <i class="fa fa-thumbs-up" aria-hidden="true">like</i>
                 <i class="fa fa-thumb-down" aria-hidden="true">dislike</i>
             </div>
-            <span>Comment</span>
+
+            <a class="text-secondary" asp-controller="Comments" asp-action="Create">New Comment</a>
+
         </div>
+
+        <ul class="list-group">
+            @foreach (var comment in item.Comments)
+            {
+
+
+                <li class="list-group-item d-flex justify-content-between align-items-center border-bottom">
+                    @comment.Content
+                    <span class="badge badge-primary badge-pill ">
+                        @comment.CreatedAt
+                    </span>
+                </li>
+
+            }
+        </ul>
+
+
     </div>
 
-    @*.................Componet...................*@
-
-    <div class="container border m-2 mb-5">
-        <div class="d-flex p-2 justify-content-between">
-            <div class="left-container w-100 border">
-                <div class="text-info d-flex p-2 justify-content-between">
-                    <h4>User Name</h4>
-                    <span class="text-muted">CreatedAt</span>
-                </div>
-                <hr />
-                <div class="text-info w-100 h-50">
-                    <h6>Title</h6>
-                    <p>Content</p>
-                </div>
-            </div>
-            <div class="right-container w-100 bg-info flex-column p-2">
-                <h6 class="m-3">image</h6>
-                <h6 class="m-3">Doc</h6>
-            </div>
-        </div>
-        <div class="d-flex p-2 justify-content-between">
-            <div class="m-2">
-                <i class="fa fa-thumbs-up" aria-hidden="true">like</i>
-                <i class="fa fa-thumb-down" aria-hidden="true">dislike</i>
-            </div>
-            <span>Comment</span>
-        </div>
-    </div>
-
-    @*.................Componet...................*@
-
-    <div class="container border m-2 mb-5">
-        <div class="d-flex p-2 justify-content-between">
-            <div class="left-container w-100 border">
-                <div class="text-info d-flex p-2 justify-content-between">
-                    <h4>User Name</h4>
-                    <span class="text-muted">CreatedAt</span>
-                </div>
-                <hr />
-                <div class="text-info w-100 h-50">
-                    <h6>Title</h6>
-                    <p>Content</p>
-                </div>
-            </div>
-            <div class="right-container w-100 bg-info flex-column p-2">
-                <h6 class="m-3">image</h6>
-                <h6 class="m-3">Doc</h6>
-            </div>
-        </div>
-        <div class="d-flex p-2 justify-content-between">
-            <div class="m-2">
-                <i class="fa fa-thumbs-up" aria-hidden="true">like</i>
-                <i class="fa fa-thumb-down" aria-hidden="true">dislike</i>
-            </div>
-            <span>Comment</span>
-        </div>
-    </div>
 
 </div>
+        }
+</div>
+

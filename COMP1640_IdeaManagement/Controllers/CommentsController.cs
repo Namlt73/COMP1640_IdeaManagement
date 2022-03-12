@@ -57,6 +57,7 @@ namespace COMP1640_IdeaManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Content,CreatedAt,IdeaId")] Comment comment)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(comment);
@@ -115,6 +116,7 @@ namespace COMP1640_IdeaManagement.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdeaId"] = new SelectList(_context.Ideas, "Id", "Content", comment.IdeaId);
+
             return View(comment);
         }
 
