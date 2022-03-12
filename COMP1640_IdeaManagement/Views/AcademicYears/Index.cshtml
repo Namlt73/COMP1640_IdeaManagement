@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<COMP1640_IdeaManagement.Models.AcademicYear>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
 }
 
 <!DOCTYPE html>
@@ -12,44 +12,51 @@
     <title>Index</title>
 </head>
 <body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <h4 class="font-weight-bold text-center mt-2">AcademicYear</h4>
+    <div class="container mb-3 mt-3 align-items-center">
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </div>
+
+
+    <table class="table border">
+        <thead >
+            <tr>
+                <th class="text-center border-right">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th class="text-center border-right">
+                    @Html.DisplayNameFor(model => model.StartedDate)
+                </th>
+                <th class="text-center border-right">
+                    @Html.DisplayNameFor(model => model.EndedDate)
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="border-right">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td class="border-right">
+                        @Html.DisplayFor(modelItem => item.StartedDate)
+                    </td>
+                    <td class="border-right">
+                        @Html.DisplayFor(modelItem => item.EndedDate)
+                    </td>
+                    <td >
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-light" asp-area="" asp-controller="Admins" asp-action="Index">Back to Admin</a>
 </body>
 </html>

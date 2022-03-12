@@ -1,7 +1,7 @@
 ﻿@model COMP1640_IdeaManagement.Models.Mission
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Edit";
 }
 
 <!DOCTYPE html>
@@ -13,46 +13,46 @@
 </head>
 <body>
 
-<h4>Mission</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OpenDate" class="control-label"></label>
-                <input asp-for="OpenDate" class="form-control" />
-                <span asp-validation-for="OpenDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClosureDate" class="control-label"></label>
-                <input asp-for="ClosureDate" class="form-control" />
-                <span asp-validation-for="ClosureDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AcademicYearId" class="control-label"></label>
-                <select asp-for="AcademicYearId" class="form-control" asp-items="ViewBag.AcademicYearId"></select>
-                <span asp-validation-for="AcademicYearId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <h3 class="font-weight-bold text-center mt-2">Mission</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OpenDate" class="control-label"></label>
+                    <input asp-for="OpenDate" class="form-control" />
+                    <span asp-validation-for="OpenDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ClosureDate" class="control-label"></label>
+                    <input asp-for="ClosureDate" class="form-control" />
+                    <span asp-validation-for="ClosureDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AcademicYearId" class="control-label"></label>
+                    <select asp-for="AcademicYearId" class="form-control" asp-items="ViewBag.AcademicYearId"></select>
+                    <span asp-validation-for="AcademicYearId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
 </body>
 </html>

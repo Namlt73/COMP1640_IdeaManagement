@@ -11,7 +11,7 @@
     <header class="p-3 bg-dark text-white">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">IDEA Management</a>
+                <a class="navbar-brand font-weight-bold" asp-a accesskeyrea="" asp-controller="Home" asp-action="Index">IDEA Management</a>
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                         <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="d-flex p-2">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle"
+                            <button class="btn btn-outline-secondary dropdown-toggle"
                                     type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
@@ -42,12 +42,12 @@
                                 Managerment
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-area="" asp-controller="Admins" asp-action="Index">Admin</a>
-                                <a class="dropdown-item" href="#">QA</a>
-                                <a class="dropdown-item" href="#">Staff</a>
-                                <a class="dropdown-item" href="#">Role manage</a>
-                                <a class="dropdown-item" href="#">Seed data</a>
-                                <a class="dropdown-item" href="#">Chart view</a>
+                                <a class="dropdown-item text-muted" asp-area="" asp-controller="Admins" asp-action="Index">Admin</a>
+                                <a class="dropdown-item text-muted" href="#">QA</a>
+                                <a class="dropdown-item text-muted" href="#">Staff</a>
+                                <a class="dropdown-item text-muted" href="#">Role manage</a>
+                                <a class="dropdown-item text-muted" href="#">Chart view</a>
+                                <a class="dropdown-item text-danger" asp-area="" asp-controller="Admins" asp-action="Seeder">Seed Data</a>
                             </div>
                         </div>
                     </div>

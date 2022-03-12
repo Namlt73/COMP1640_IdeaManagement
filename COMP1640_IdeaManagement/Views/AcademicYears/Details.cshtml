@@ -1,7 +1,7 @@
 ﻿@model COMP1640_IdeaManagement.Models.AcademicYear
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Detail";
 }
 
 <!DOCTYPE html>
@@ -13,33 +13,39 @@
 </head>
 <body>
 
-<div>
-    <h4>AcademicYear</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndedDate)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <h4 class="font-weight-bold text-center mt-2">AcademicYear</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+               
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+                
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StartedDate)
+                
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StartedDate)
+                
+            </dd>
+            <dt class="col-sm-2">
+               @Html.DisplayNameFor(model => model.EndedDate)
+                
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EndedDate)
+                
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a class="btn btn-light" asp-action="Index">Back to List</a>
+    </div>
 </body>
 </html>

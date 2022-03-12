@@ -1,8 +1,9 @@
 ﻿@model COMP1640_IdeaManagement.Helpper.UploadFile
 @{
+    ViewData["Title"] = "Ideas Upload";
     Idea idea = ViewData["Idea"] as Idea;
 }
-<h1>Uploads file</h1>
+<h1 font-weight-bold text-center mt-2">Uploads file</h1>
 
 <form method="post" enctype="multipart/form-data">
     <label asp-for="@Model.FileUpload"></label>
@@ -12,11 +13,10 @@
     <button asp-action="FileUpload" asp-route-id="@idea.Id">Upload</button>
 </form>
 <div class="d-flex flex-wrap">
-    @foreach(var img in idea.Images)
+    @foreach (var img in idea.Images)
     {
-    <div class="w-50">
-        <img class="w-100" src="/images/Ideas/@img.FileName" />
-    </div>
+        <div class="w-50">
+            <img class="w-100" src="/images/Ideas/@img.FileName" />
+        </div>
     }
 </div>
-    
