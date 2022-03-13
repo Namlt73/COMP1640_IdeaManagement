@@ -9,18 +9,79 @@ using COMP1640_IdeaManagement.Data;
 using COMP1640_IdeaManagement.Models;
 using COMP1640_IdeaManagement.Helpper;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
     public class IdeasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private IHostingEnvironment _oIHostingEnvironment;
 
-        public IdeasController(ApplicationDbContext context)
+        public IdeasController(ApplicationDbContext context, IHostingEnvironment oIHostingEnvironment)
         {
             _context = context;
+            _oIHostingEnvironment = oIHostingEnvironment;
         }
 
+
+        public FileResult Download()
+        {
+            var webRoot = _oIHostingEnvironment.WebRootPath;
+            var fileName = "MyZip.zip";
+            var tempOutput = webRoot + "/Uploads/Ideas/" + fileName;
+
+            using (ZipOutputStream oZipOutputStream = new ZipOutputStream(System.IO.File.Create(tempOutput)))
+            {
+                oZipOutputStream.SetLevel(9);
+                byte[] buffer = new byte[4096];
+
+                var fileList = new List<string>();
+
+                fileList.Add(webRoot + "/Uploads/Ideas/img1.jpg");
+
+                for (int i = 0; i < fileList.Count; i++)
+                {
+                    ZipEntry entry = new ZipEntry(Path.GetFileName(fileList[i]));
+                    entry.DateTime = DateTime.Now;
+                    entry.IsUnicodeText = true;
+                    oZipOutputStream.PutNextEntry(entry);
+
+                    using (FileStream oFileStream = System.IO.File.OpenRead(fileList[i]))
+                    {
+                        int sourceByte;
+
+                        do
+                        {
+
+                            sourceByte = oFileStream.Read(buffer, 0, buffer.Length);
+                            oZipOutputStream.Write(buffer, 0, sourceByte);
+                        } while (sourceByte > 0);
+                    }
+                }
+
+                oZipOutputStream.Finish();
+                oZipOutputStream.Flush();
+                oZipOutputStream.Close();
+            }
+
+            byte[] finalResult = System.IO.File.ReadAllBytes(tempOutput);
+
+            if (System.IO.File.Exists(tempOutput))
+            {
+                System.IO.File.Delete(tempOutput);
+            }
+
+            if (finalResult == null || !finalResult.Any())
+            {
+                throw new Exception(String.Format("Nothing Found"));
+
+            }
+
+            return File(finalResult, "application/zip", fileName);
+
+        }
         // GET: Ideas
         public async Task<IActionResult> Index()
         {
@@ -193,7 +254,7 @@ namespace COMP1640_IdeaManagement.Controllers
             {
                 var file = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(model.FileUpload.FileName);
 
-                var filePath = Path.Combine("Uploads", "Ideas", file); // path to save img
+                var filePath = Path.Combine(@"wwwroot/Uploads", "Ideas", file); // path to save img
 
                 using(var fileStream = new FileStream(filePath, FileMode.Create))
                 {

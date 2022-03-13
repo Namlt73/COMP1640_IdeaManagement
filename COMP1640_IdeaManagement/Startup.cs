@@ -92,7 +92,7 @@ namespace COMP1640_IdeaManagement
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Uploads")),
                 RequestPath = "/images"
             });
 
