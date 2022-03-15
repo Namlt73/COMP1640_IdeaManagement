@@ -11,6 +11,13 @@ using COMP1640_IdeaManagement.Helpper;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using ICSharpCode.SharpZipLib.Zip;
+using System.IO;
+using MailKit.Net.Smtp;
+using MailKit;
+using MimeKit;
+using System.Net;
+using System.Net.Mail;
+using MailKit.Security;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
@@ -128,12 +135,38 @@ namespace COMP1640_IdeaManagement.Controllers
             {
                 _context.Add(idea);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
             }
+            // TODO tro toi gmail can gui (query trong db)
+            string to = "anhroyal110@gmail.com";
+            string subject = "A new idea has just been created";
+            string body = "Just created a new idea, please go see it and leave a review";
+
+
+            var email = new MimeMessage();
+
+            email.Sender = new MailboxAddress("anhroyal110@gmail.com", "anhroyal110@gmail.com");
+            email.From.Add(new MailboxAddress("anhroyal110@gmail.com", "anhroyal110@gmail.com"));
+            email.To.Add(new MailboxAddress(to, to));
+            email.Subject = subject;
+            var builder = new BodyBuilder();
+            builder.HtmlBody = body;
+            email.Body = builder.ToMessageBody();
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            //kết nối máy chủ
+            await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+            // xác thực
+            // TODO CHỖ NÀY LÀ SEND MAIL VỚI MẬT KHẨU VÀ ACCOUT
+            await smtp.AuthenticateAsync("anhroyal110@gmail.com", "Passwork");
+            //gởi
+            await smtp.SendAsync(email);
+
+            smtp.Disconnect(true);
+
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", idea.CategoryId);
             ViewData["MissionId"] = new SelectList(_context.Missions, "Id", "Name", idea.MissionId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", idea.UserId);
-            return View(idea);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Ideas/Edit/5
