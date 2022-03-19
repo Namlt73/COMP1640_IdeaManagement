@@ -157,7 +157,7 @@ namespace COMP1640_IdeaManagement.Controllers
             await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
             // xác thực
             // TODO CHỖ NÀY LÀ SEND MAIL VỚI MẬT KHẨU VÀ ACCOUT
-            await smtp.AuthenticateAsync("anhroyal110@gmail.com", "Passwork");
+            await smtp.AuthenticateAsync("yeupaquy@gmail.com", "thuanthuan25");
             //gởi
             await smtp.SendAsync(email);
 
