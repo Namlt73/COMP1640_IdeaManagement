@@ -1,7 +1,7 @@
-﻿@model IEnumerable<COMP1640_IdeaManagement.Models.IdeaVote>
+﻿@model IEnumerable<COMP1640_IdeaManagement.Models.Like>
 
 @{
-    ViewData["Title"] = "IdeaVotes Index";
+    ViewData["Title"] = "Like Index";
 }
 
 <!DOCTYPE html>
@@ -27,9 +27,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsLike)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDislike)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -46,12 +43,9 @@
                 @Html.DisplayFor(modelItem => item.IsLike)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsDislike)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id= item.UserId, item.IdeaId }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
