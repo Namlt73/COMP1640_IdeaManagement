@@ -33,6 +33,34 @@ namespace COMP1640_IdeaManagement.Controllers
         }
 
 
+
+        public IActionResult AllFiles()
+        {
+            //Fetch all files in the Folder (Directory).
+            string[] filePaths = Directory.GetFiles(Path.Combine(this._oIHostingEnvironment.WebRootPath, "Uploads/Ideas/"));
+
+            //Copy File names to Model collection.
+            List<FileModel> files = new List<FileModel>();
+            foreach (string filePath in filePaths)
+            {
+                files.Add(new FileModel { FileName = Path.GetFileName(filePath) });
+            }
+
+            return View(files);
+        }
+
+        public FileResult DownloadFile(string fileName)
+        {
+            //Build the File Path.
+            string path = Path.Combine(this._oIHostingEnvironment.WebRootPath, "Uploads/Ideas/") + fileName;
+
+            //Read the File data into Byte Array.
+            byte[] bytes = System.IO.File.ReadAllBytes(path);
+
+            //Send the File to Download.
+            return File(bytes, "application/octet-stream", fileName);
+        }
+
         public FileResult Download()
         {
             var webRoot = _oIHostingEnvironment.WebRootPath;
@@ -145,8 +173,8 @@ namespace COMP1640_IdeaManagement.Controllers
 
             var email = new MimeMessage();
 
-            email.Sender = new MailboxAddress("anhroyal110@gmail.com", "anhroyal110@gmail.com");
-            email.From.Add(new MailboxAddress("anhroyal110@gmail.com", "anhroyal110@gmail.com"));
+            email.Sender = new MailboxAddress("thuancisdd@gmail.com", "thuancisdd@gmail.com");
+            email.From.Add(new MailboxAddress("thuancisdd@gmail.com", "thuancisdd@gmail.com"));
             email.To.Add(new MailboxAddress(to, to));
             email.Subject = subject;
             var builder = new BodyBuilder();
@@ -157,7 +185,7 @@ namespace COMP1640_IdeaManagement.Controllers
             await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
             // xác thực
             // TODO CHỖ NÀY LÀ SEND MAIL VỚI MẬT KHẨU VÀ ACCOUT
-            await smtp.AuthenticateAsync("yeupaquy@gmail.com", "thuanthuan25");
+            await smtp.AuthenticateAsync("thuancisdd@gmail.com", "ChanhThuanDuyen#2579#GmailCis12/2021");
             //gởi
             await smtp.SendAsync(email);
 
