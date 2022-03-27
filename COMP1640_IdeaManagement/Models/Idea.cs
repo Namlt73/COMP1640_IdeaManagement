@@ -32,6 +32,10 @@ namespace COMP1640_IdeaManagement.Models
        
         public List<Comment> Comments { get; set; }
 
+        public List<Like> Likes { get; set; }
+        public List<Dislike> Dislikes { get; set; }
+
+
         [ForeignKey("User")]
         [Display(Name = "User Id")]
         public string UserId { get; set; }
