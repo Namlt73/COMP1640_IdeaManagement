@@ -1,4 +1,4 @@
-﻿
+using COMP1640_IdeaManagement.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -15,17 +15,24 @@ namespace COMP1640_IdeaManagement.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public AdminsController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminsController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public IActionResult Index()
         {
             
             return View();
+        }
+
+        public IActionResult chart()
+        {
+            return View(_context.Ideas.ToList());
         }
 
         public async Task<IActionResult> Seeder()
