@@ -1,4 +1,7 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+@inject RoleManager<IdentityRole> RoleManager
+
 
 @{
     ViewData["Title"] = "Admin";
@@ -16,5 +19,30 @@
         <a class="btn btn-warning text-white p-2 m-2" asp-area="" asp-controller="Missions" asp-action="Index">Mission manage</a>
 
     </div>
+    <table class="table border mt-4">
+        <thead>
+            <tr>
+                <th class="border-right">
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="border-right">
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        <a class="btn btn-info" asp-controller="Admins" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a class="btn btn-primary" asp-controller="Roles" asp-action="Index" asp-route-id="@item.Id">Role</a> |
 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back</a>
 </div>

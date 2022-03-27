@@ -15,6 +15,6 @@ namespace COMP1640_IdeaManagement.Models
 
         public int ? CommentId { get; set; }
         public virtual Comment Comment { get; set; }
-        public Vote Vote { get; set; }
+        
     }
 }

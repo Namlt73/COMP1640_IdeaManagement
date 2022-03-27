@@ -7,6 +7,10 @@ namespace COMP1640_IdeaManagement.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -19,7 +23,7 @@ namespace COMP1640_IdeaManagement.Data
         public DbSet<AcademicYear> AcademicYears { get; set; }
         public DbSet<IdeaImage> IdeaImages { get; set; }
 
-        public DbSet<IdeaVote> Votes { get; set; }
+       
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -48,22 +52,6 @@ namespace COMP1640_IdeaManagement.Data
                         .HasForeignKey(c => c.IdeaId)
                         .OnDelete(DeleteBehavior.Restrict);
 
-
-
-            builder.Entity<IdeaVote>()
-           .HasKey(c => new { c.UserId, c.IdeaId });
-
-            builder.Entity<IdeaVote>()
-                        .HasOne(c => c.User)
-                        .WithMany()
-                        .HasForeignKey(c => c.UserId)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<IdeaVote>()
-                        .HasOne(c => c.Idea)
-                        .WithMany()
-                        .HasForeignKey(c => c.IdeaId)
-                        .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

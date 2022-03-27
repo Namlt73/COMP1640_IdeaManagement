@@ -4,19 +4,23 @@
     Idea idea = ViewData["Idea"] as Idea;
 }
 <h1 font-weight-bold text-center mt-2">Uploads file</h1>
+<div class="border border-info">
+    <form method="post" enctype="multipart/form-data">
+        <label class="text-muted m-2" asp-for="@Model.FileUpload"></label>
+        <input class="btn btn-outline-dark m-2" asp-for="@Model.FileUpload" />
+        <span class="m-2" asp-validation-for="@Model.FileUpload"></span>
 
-<form method="post" enctype="multipart/form-data">
-    <label asp-for="@Model.FileUpload"></label>
-    <input asp-for="@Model.FileUpload" />
-    <span asp-validation-for="@Model.FileUpload"></span>
-
-    <button asp-action="FileUpload" asp-route-id="@idea.Id">Upload</button>
-</form>
-<div class="d-flex flex-wrap">
-    @foreach (var img in idea.Images)
-    {
-        <div class="w-50">
-            <img class="w-100" src="/images/Ideas/@img.FileName" />
-        </div>
-    }
+        <button class="btn btn-primary" asp-action="FileUpload" asp-route-id="@idea.Id">Upload</button>
+    </form>
+    <div class="d-flex flex-wrap">
+        @foreach (var img in idea.Images)
+        {
+            <div class="w-50 box-shadow ">
+                <img class="w-100" src="/images/Ideas/@img.FileName" />
+            </div>
+        }
+    </div>
 </div>
+
+
+<a class="btn btn-light" asp-area="" asp-controller="Admins" asp-action="Index">Back to Admin</a>

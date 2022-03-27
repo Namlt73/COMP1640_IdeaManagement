@@ -12,9 +12,9 @@
 </head>
 <body>
 
-    <a href="Ideas/Download" target="_blank" class="btn btn-success">Download</a>
+    
     <p>
-        <a asp-action="Create" class="btn btn-primary">Create New</a>
+        <a asp-action="Create" class="btn btn-primary mt-3">Create New</a>
     </p>
     <table class="table border ">
         <thead>
@@ -71,12 +71,14 @@
                     <td>
                         <a class=" btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                        <a class="btn btn-secondary" asp-route-id="@item.Id"  asp-controller="Ideas" asp-action="Upload">File Upload</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <a href="Ideas/Download" target="_blank" class="btn btn-success">Download</a> | 
     <a class="btn btn-light" asp-area="" asp-controller="Admins" asp-action="Index">Back to Admin</a>
 </body>
 </html>

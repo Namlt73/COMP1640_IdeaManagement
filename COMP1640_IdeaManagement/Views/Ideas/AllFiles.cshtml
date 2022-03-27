@@ -3,7 +3,7 @@
 @model List<FileModel>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "AllFiles";
 }
 
 <!DOCTYPE html>
@@ -11,17 +11,19 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title class="font-weight-bold">Index</title>
 </head>
-<body>
-    <table>
-        <tr>
+<body class="border border-info w-100">
+    <table >
+        <tr class="border-bottom">
             <th>File Name</th>
-            <th></th>
+            <th>
+                Actions
+            </th>
         </tr>
         @foreach (FileModel file in Model)
         {
-            <tr>
+            <tr  class="border-bottom">
                 <td>@file.FileName</td>
                 <td>@Html.ActionLink("Download", "DownloadFile", new { fileName = file.FileName })</td>
             </tr>

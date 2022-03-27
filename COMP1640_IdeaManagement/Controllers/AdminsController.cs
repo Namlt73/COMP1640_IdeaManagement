@@ -1,4 +1,5 @@
 ﻿
+using COMP1640_IdeaManagement.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -15,6 +16,8 @@ namespace COMP1640_IdeaManagement.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        
+
 
         public AdminsController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -22,12 +25,28 @@ namespace COMP1640_IdeaManagement.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
-            return View();
-        }
+            return View(await _userManager.Users.ToListAsync());
 
+        }
+        // GET: Categories/Details/5
+        [HttpGet]
+        public async Task<IActionResult> Details(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
         public async Task<IActionResult> Seeder()
         {
             var roleNames = typeof(Utils.Utils).GetFields().ToList();
