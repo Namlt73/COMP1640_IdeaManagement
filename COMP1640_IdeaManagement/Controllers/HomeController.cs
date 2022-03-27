@@ -25,7 +25,9 @@ namespace COMP1640_IdeaManagement.Controllers
                 .Include(i => i.Mission)
                 .Include(i => i.User)
                 .Include(i=>i.Images)
-                .Include(i => i.Comments);
+                .Include(i => i.Comments)
+                .Include(i => i.Likes)
+                .Include(i => i.Dislikes);
             return View(await applicationDbContext.ToListAsync());
         }
 

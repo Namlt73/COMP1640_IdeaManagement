@@ -1,7 +1,7 @@
-﻿@model COMP1640_IdeaManagement.Models.IdeaVote
+﻿@model COMP1640_IdeaManagement.Models.Dislike
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Disike Details";
 }
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
 <body>
 
 <div>
-    <h4>IdeaVote</h4>
+    <h4>Dislike</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -30,21 +30,15 @@
             @Html.DisplayFor(model => model.Idea.Content)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsLike)
+            @Html.DisplayNameFor(model => model.IsDisLike)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsLike)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsDislike)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsDislike)
+            @Html.DisplayFor(model => model.IsDisLike)
         </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 </body>
