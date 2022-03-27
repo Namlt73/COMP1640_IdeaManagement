@@ -1,6 +1,11 @@
-﻿using COMP1640_IdeaManagement.Data;
+using COMP1640_IdeaManagement.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,6 +26,7 @@ namespace COMP1640_IdeaManagement.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 
@@ -58,6 +64,7 @@ namespace COMP1640_IdeaManagement.Controllers
             }
 
             return RedirectToAction("Index");
-        }
+        }    
+        
     }
 }
