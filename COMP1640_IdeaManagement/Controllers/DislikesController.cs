@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using COMP1640_IdeaManagement.Data;
 using COMP1640_IdeaManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
+    [Authorize]
     public class DislikesController : Controller
     {
         private readonly ApplicationDbContext _context;

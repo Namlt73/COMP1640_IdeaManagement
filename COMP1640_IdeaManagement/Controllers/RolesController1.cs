@@ -1,4 +1,5 @@
 ﻿using COMP1640_IdeaManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class RolesController : Controller
     {
         private RoleManager<IdentityRole> _roleManager;

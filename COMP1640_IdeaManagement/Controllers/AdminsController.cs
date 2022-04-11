@@ -1,5 +1,6 @@
 ﻿
 using COMP1640_IdeaManagement.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -76,7 +78,9 @@ namespace COMP1640_IdeaManagement.Controllers
             }
 
             return RedirectToAction("Index");
-        }    
+        }
+
         
+
     }
 }

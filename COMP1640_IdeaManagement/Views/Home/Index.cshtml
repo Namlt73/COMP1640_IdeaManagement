@@ -8,79 +8,83 @@
 
 
 <div class="container">
-   <div class="d-flex flex-row justify-content-between border shadow mb-3 mt-3">
-       <div>
-           <h3 class=" mt-3 ml-2">@User.Identity.Name</h3>
-       </div>
-       <p>
-           <a asp-controller="Ideas" asp-action="Create"  class="btn btn-primary mt-3 mr-2">Create New Idea</a>
-        </p>
-       </div>
-
-       @foreach (var item in Model)
-        {
-<div class="border m-2 mb-5">
-    <div class="d-flex p-2 justify-content-between">
-
-        <div class="left-container w-100 border">
-            <div class="text-dark d-flex p-2 justify-content-between">
-                <h4>@item.User.UserName</h4>
-                <span class="text-muted">@item.CreatedAt</span>
+    @if (User.IsInRole("Staff"))
+    {
+        <div class="d-flex flex-row justify-content-between border shadow mb-3 mt-3">
+            <div>
+                <h3 class=" mt-3 ml-2">@User.Identity.Name</h3>
             </div>
-            <hr />
-            <div class="text-info w-100 h-50">
-                <h6>@item.Title</h6>
-                <p>@item.Content</p>
-            </div>
+            <p>
+                <a asp-controller="Ideas" asp-action="Create" class="btn btn-primary mt-3 mr-2">Create New Idea</a>
+            </p>
         </div>
-        <div class="right-container w-100 flex-column p-2">
-
-            @foreach (var img in item.Images)
-            {
-                <img class="m-3 w-100 h-100" src="/images/Ideas/@img.FileName" alt="" />
-            }
-        </div>
+    }
 
 
-    </div>
-    <div>
-        <div class="d-flex p-2 justify-content-between">
-            <div class="d-flex flex-row">
-                <div class="m-2">
-                    @item.Likes.Count()
-                    <i type="button"  class="fas fa-thumbs-up" value="True" onclick="location.href='@Url.Action("Create", "Likes")'"></i>
-                </div> 
-                <div class="m-2">
-                    @item.Dislikes.Count()
-                    <i class="fas fa-thumbs-down" type="button" class="fas fa-thumbs-up" value="True" onclick="location.href='@Url.Action("Create", "Dislikes")'"></i>
+    @foreach (var item in Model)
+    {
+        <div class="border m-2 mb-5">
+            <div class="d-flex p-2 justify-content-between">
+
+                <div class="left-container w-100 border">
+                    <div class="text-dark d-flex p-2 justify-content-between">
+                        <h4>@item.User.UserName</h4>
+                        <span class="text-muted">@item.CreatedAt</span>
+                    </div>
+                    <hr />
+                    <div class="text-info w-100 h-50">
+                        <h6>@item.Title</h6>
+                        <p>@item.Content</p>
+                    </div>
                 </div>
-                
+                <div class="right-container w-100 flex-column p-2">
+
+                    @foreach (var img in item.Images)
+                    {
+                        <img class="m-3 w-100 h-100" src="/images/Ideas/@img.FileName" alt="" />
+                    }
+                </div>
+
+
+            </div>
+            <div>
+                <div class="d-flex p-2 justify-content-between">
+                    <div class="d-flex flex-row">
+                        <div class="m-2">
+                            @item.Likes.Count()
+                            <i type="button" class="fas fa-thumbs-up" value="True" onclick="location.href='@Url.Action("Create", "Likes")'"></i>
+                        </div>
+                        <div class="m-2">
+                            @item.Dislikes.Count()
+                            <i class="fas fa-thumbs-down" type="button" class="fas fa-thumbs-up" value="True" onclick="location.href='@Url.Action("Create", "Dislikes")'"></i>
+                        </div>
+
+                    </div>
+
+                    <a class="text-secondary" asp-controller="Comments" asp-action="Create">New Comment</a>
+
+                </div>
+
+                <ul class="list-group">
+                    @foreach (var comment in item.Comments)
+                    {
+
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-bottom">
+                            @comment.Content
+                            <span class="badge badge-primary badge-pill ">
+                                @comment.CreatedAt
+                            </span>
+                        </li>
+
+                    }
+                </ul>
+
+
             </div>
 
-            <a class="text-secondary" asp-controller="Comments" asp-action="Create">New Comment</a>
 
         </div>
-
-        <ul class="list-group">
-            @foreach (var comment in item.Comments)
-            {
-
-
-                <li class="list-group-item d-flex justify-content-between align-items-center border-bottom">
-                    @comment.Content
-                    <span class="badge badge-primary badge-pill ">
-                        @comment.CreatedAt
-                    </span>
-                </li>
-
-            }
-        </ul>
-
-
-    </div>
-
-
-</div>
-        }
+    }
 </div>
 

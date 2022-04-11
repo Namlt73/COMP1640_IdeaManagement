@@ -9,14 +9,10 @@
 
 
 
-<h2 class="font-weight-bold text-center mt-2">Admin page</h2>
+<h2 class="font-weight-bold text-center mt-2">Account Manage</h2>
 
 <div class="container">
     <div class="d-flex flex-row">
-        <a class="btn btn-primary text-white p-2 m-2" asp-area="" asp-controller="AcademicYears" asp-action="Index">AcademicYears manage</a>
-        <a class="btn btn-info text-white p-2 m-2" asp-area="" asp-controller="Categories" asp-action="Index">Categories manage</a>
-        <a class="btn btn-success text-white p-2 m-2" asp-area="" asp-controller="Ideas" asp-action="Index">Ideas manage</a>
-        <a class="btn btn-warning text-white p-2 m-2" asp-area="" asp-controller="Missions" asp-action="Index">Mission manage</a>
 
     </div>
     <table class="table border mt-4">
@@ -37,12 +33,15 @@
                     </td>
                     <td>
                         <a class="btn btn-info" asp-controller="Admins" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a class="btn btn-primary" asp-controller="Roles" asp-action="Index" asp-route-id="@item.Id">Role</a> |
-
+                        <a class="btn btn-danger" asp-controller="Admins" asp-action="Delete" asp-route-id="@item.Id">Delete</a>                        
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back</a>
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Create new account</a>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back</a>
+    </div>
+    
 </div>

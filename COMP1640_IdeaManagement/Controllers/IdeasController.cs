@@ -18,9 +18,11 @@ using MimeKit;
 using System.Net;
 using System.Net.Mail;
 using MailKit.Security;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
+    [Authorize]
     public class IdeasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -48,7 +50,7 @@ namespace COMP1640_IdeaManagement.Controllers
 
             return View(files);
         }
-
+        [Authorize(Roles = "QA Coordinator")]
         public FileResult DownloadFile(string fileName)
         {
             //Build the File Path.
@@ -61,6 +63,7 @@ namespace COMP1640_IdeaManagement.Controllers
             return File(bytes, "application/octet-stream", fileName);
         }
 
+        [Authorize(Roles = "QA Coordinator")]
         public FileResult Download()
         {
             var webRoot = _oIHostingEnvironment.WebRootPath;
@@ -118,6 +121,7 @@ namespace COMP1640_IdeaManagement.Controllers
 
         }
         // GET: Ideas
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Ideas.Include(i => i.Category).Include(i => i.Mission).Include(i => i.User);
@@ -125,6 +129,7 @@ namespace COMP1640_IdeaManagement.Controllers
         }
 
         // GET: Ideas/Details/5
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -146,6 +151,7 @@ namespace COMP1640_IdeaManagement.Controllers
         }
 
         // GET: Ideas/Create
+        [Authorize(Roles = "Staff")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
@@ -157,6 +163,7 @@ namespace COMP1640_IdeaManagement.Controllers
         // POST: Ideas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Create([Bind("Id,Title,Content,CreatedAt,Status,UserId,MissionId,CategoryId")] Idea idea)
         {
             if (ModelState.IsValid)
@@ -198,6 +205,7 @@ namespace COMP1640_IdeaManagement.Controllers
         }
 
         // GET: Ideas/Edit/5
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -219,6 +227,7 @@ namespace COMP1640_IdeaManagement.Controllers
         // POST: Ideas/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CreatedAt,Status,UserId,MissionId,CategoryId")] Idea idea)
         {
             if (id != idea.Id)
@@ -276,6 +285,7 @@ namespace COMP1640_IdeaManagement.Controllers
         // POST: Ideas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var idea = await _context.Ideas.FindAsync(id);
@@ -302,6 +312,7 @@ namespace COMP1640_IdeaManagement.Controllers
             return View(new UploadFile());
         }
         [HttpPost, ActionName("FileUpload")]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> FileUploadAsync(int id, [Bind("FileUpload")] UploadFile model)
         {
             var idea = _context.Ideas
