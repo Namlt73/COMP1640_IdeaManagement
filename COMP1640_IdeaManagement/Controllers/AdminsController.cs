@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    
     public class AdminsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -26,7 +26,7 @@ namespace COMP1640_IdeaManagement.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index()
         {
             return View(await _userManager.Users.ToListAsync());
@@ -34,6 +34,7 @@ namespace COMP1640_IdeaManagement.Controllers
         }
         // GET: Categories/Details/5
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)

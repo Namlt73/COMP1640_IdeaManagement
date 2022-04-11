@@ -19,22 +19,29 @@ using System.Net;
 using System.Net.Mail;
 using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace COMP1640_IdeaManagement.Controllers
 {
     [Authorize]
     public class IdeasController : Controller
     {
+        
         private readonly ApplicationDbContext _context;
         private IHostingEnvironment _oIHostingEnvironment;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public IdeasController(ApplicationDbContext context, IHostingEnvironment oIHostingEnvironment)
+        public IdeasController(ApplicationDbContext context, IHostingEnvironment oIHostingEnvironment, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _oIHostingEnvironment = oIHostingEnvironment;
+            _userManager = userManager;
         }
 
-
+        private async Task<IdentityUser> GetCurrentUser()
+        {
+            return await _userManager.GetUserAsync(HttpContext.User);
+        }
 
         public IActionResult AllFiles()
         {
@@ -121,7 +128,7 @@ namespace COMP1640_IdeaManagement.Controllers
 
         }
         // GET: Ideas
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "QA Coordinator")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Ideas.Include(i => i.Category).Include(i => i.Mission).Include(i => i.User);
@@ -132,6 +139,7 @@ namespace COMP1640_IdeaManagement.Controllers
         [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();

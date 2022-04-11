@@ -20,6 +20,7 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a class="nav-link px-2 text-secondary" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a class="nav-link px-2 text-secondary" asp-controller="Admins" asp-action="Seeder">Update Data</a></li>
                         @if (User.IsInRole("QA Coordinator"))
                         {
                             <li><a class="nav-link px-2 text-secondary" asp-controller="Categories" asp-action="Index">Category</a></li>
@@ -31,10 +32,6 @@
                             <li><a class="nav-link px-2 text-secondary" asp-controller="Admins" asp-action="Index">Account</a></li>
                             <li><a class="nav-link px-2 text-secondary" asp-controller="Roles" asp-action="Index">Role</a></li>
                             <li><a class="nav-link px-2 text-secondary" asp-controller="AcademicYears" asp-action="Index">Academic</a></li>
-                        }
-                        @if (User.IsInRole("Staff"))
-                        {
-                            <li><a class="nav-link px-2 text-secondary" asp-controller="Ideas" asp-action="CurrentIdeas">My Idea</a></li>
                         }
 
                     </ul>
