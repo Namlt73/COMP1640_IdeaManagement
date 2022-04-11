@@ -24,6 +24,7 @@ namespace COMP1640_IdeaManagement.Models
         [DataType(DataType.Date)]
         [Display(Name = "Date Created")]
         public DateTime CreatedAt { get; set; }
+        [Display(Name = "Public")]
         public bool Status { get; set; }
 
         
